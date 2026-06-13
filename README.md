@@ -158,6 +158,85 @@ gold-shop/
 | `[gold_price unit="g" purity="585" label="Złoto"]` | unit: g/oz/kg, purity: 375-999 | Wyświetla aktualną cenę złota |
 | `[gold_buyback_calculator]` | brak | Interaktywny kalkulator wykupu złota |
 
+## WoodMart — Konfiguracja motywu
+
+WoodMart to premium motyw WooCommerce (ThemeForest, $59) z demo **Jewellery 2** dedykowanym jubilerstwu.
+
+### Instalacja
+```bash
+# 1. Pobierz WoodMart z ThemeForest (Envato) → zakładka Downloads
+# 2. W panelu WordPress: Wygląd → Motywy → Dodaj nowy → Wgraj motyw
+# 3. Wybierz woodmart.zip → Zainstaluj → Aktywuj
+# 4. Aktywuj WoodMart Child (gold-shop/wp-content/themes/woodmart-child/)
+```
+
+### Import demo — Jewellery 2
+```
+Panel WordPress → WoodMart → Import → Wybierz "Jewellery 2"
+Zaznacz: Importuj wszystko (strony, produkty, obrazy, slider, widgety)
+Po imporcie: WoodMart → Import → Regenerate thumbnails
+```
+
+### Kluczowe ustawienia WoodMart
+
+| Sekcja | Ustawienie | Wartość |
+|--------|-----------|---------|
+| **General** | Site width | 1200px (full-width) |
+| **General** | Layout | Wide |
+| **Header** | Style | Transparent (złoto na czarnym tle) |
+| **Header** | Color | Złoty #d4af37 / Biały #fff |
+| **Shop** | Product page layout | Large image + sticky sidebar |
+| **Shop** | AJAX add to cart | Włączone |
+| **Shop** | Quick view | Włączone |
+| **Shop** | Product swatches | Włączone (dla prób 375-999) |
+| **Shop** | Product filters | AJAX, pozycja: off-canvas sidebar |
+| **Shop** | Categories layout | Masonry z ikonami |
+| **Colors** | Primary | #d4af37 (złoty) |
+| **Colors** | Secondary | #1a1a2e (ciemny granat) |
+| **Colors** | Body bg | #ffffff |
+| **Typography** | Headings | Playfair Display (elegancka) |
+| **Typography** | Body | Lato |
+
+### Dodatkowe wtyczki wymagane przez WoodMart
+
+| Wtyczka | Rola |
+|---------|------|
+| **Elementor** (wymagany) | Page builder dla WoodMart |
+| **WPBakery** (opcjonalny) | Alternatywny builder |
+| **MetaBox** (rekomendowany) | Zaawansowane meta pola produktów |
+| **Slider Revolution** (dołączony) | Slider na stronie głównej |
+| **WooCommerce** (wymagany) | Silnik sklepu |
+
+### Modyfikacje w child theme
+
+Pliki nadpisane w `woodmart-child/`:
+
+```
+woocommerce/
+├── single-product/
+│   ├── price.php      # Dynamiczna cena złota (NBP/GoldAPI × próba × waga)
+│   └── meta.php       # Metadane: próba, waga, premia, certyfikat
+├── loop/
+│   └── price.php      # Dynamiczna cena na listingu
+├── cart/
+│   └── cart.php       # Koszyk z dynamicznym przeliczeniem
+└── checkout/          # (do rozszerzenia o kod polecający)
+```
+
+Shortcode'e zintegrowane z layoutem WoodMart:
+- `[gold_ticker]` — w Header → Top bar zamiast domyślnego
+- `[gold_price_alert]` — w Sidebar produktu / stopce
+- `[gold_referral]` — w Moje konto → zakładka "Polecenia"
+- `[gold_buyback_calculator]` — osobna podstrona / usługa
+
+### Performance tips dla WoodMart
+
+1. **LiteSpeed Cache**: Włącz CSS minify + Combine, JS minify + Combine, lazyload dla obrazów
+2. **Obrazy**: WebP, max 1920px, kompresja 70% (EWWW Image Optimizer lub ShortPixel)
+3. **Google Fonts**: Zostaw tylko Playfair Display + Lato (usuń resztę w WoodMart → Typography)
+4. **WPBakery → Elementor**: Jeśli używasz Elementora, wyłącz WPBakery dla wydajności
+5. **Demo content**: Po imporcie usuń niepotrzebne demo produkty/strony (zostaw tylko strukturę)
+
 ## Zarządzanie produktami złotymi
 
 Każdy produkt może być oznaczony jako "Produkt złoty" z polami:
