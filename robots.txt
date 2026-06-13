@@ -1,0 +1,53 @@
+# ==========================================
+# robots.txt - Sklep ze złotem
+# ==========================================
+
+User-agent: *
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/themes/
+Disallow: /wp-json/
+Disallow: /xmlrpc.php
+Disallow: /wp-login.php
+Disallow: /?add-to-cart=*
+Disallow: /?wc-ajax=*
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /my-account/
+Disallow: /my-account/*
+Disallow: /wishlist/
+Disallow: /compare/
+Disallow: /*?orderby=*
+Disallow: /*filter_*
+Disallow: /*?add-to-cart=*
+Disallow: /page/*
+Disallow: */trackback/
+Disallow: */feed/
+
+# Zezwolenia dla botów
+Allow: /wp-content/uploads/
+Allow: /wp-content/cache/
+
+# Sitemap
+Sitemap: https://twojadomena.pl/sitemap.xml
+Sitemap: https://twojadomena.pl/sitemap_index.xml
+
+# Crawl-delay (dla delikatnych botów)
+Crawl-delay: 10
+
+# Google-specific
+User-agent: Googlebot
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /my-account/
+
+User-agent: Googlebot-Image
+Allow: /wp-content/uploads/
+
+User-agent: AdsBot-Google
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /my-account/

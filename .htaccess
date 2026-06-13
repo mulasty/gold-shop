@@ -1,0 +1,118 @@
+# ==========================================
+# Sklep ze złotem - .htaccess
+# ==========================================
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# ==========================================
+# BEZPIECZEŃSTWO
+# ==========================================
+
+# Blokada dostępu do wrażliwych plików
+<FilesMatch "^(wp-config\.php|wp-config-sample\.php|install\.php|phpinfo\.php|readme\.html|license\.txt|composer\.json|package\.json|package-lock\.json|gulpfile\.js|Gruntfile\.js)">
+  Require all denied
+</FilesMatch>
+
+# Blokada .git, .svn, .hg
+RedirectMatch 404 /\.git
+RedirectMatch 404 /\.svn
+RedirectMatch 404 /\.hg
+
+# Blokada dostępu do plików z kropką
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+# Blokada XMLRPC - odkomentuj jeśli nie używasz aplikacji mobilnych
+# <Files xmlrpc.php>
+#   Require all denied
+# </Files>
+
+# ==========================================
+# WYDAJNOŚĆ - CACHOWANIE
+# ==========================================
+
+<IfModule mod_expires.c>
+ExpiresActive On
+
+# HTML (krótki cache)
+ExpiresByType text/html "access plus 1 hour"
+
+# CSS, JS (długi cache z fingerprintingiem)
+ExpiresByType text/css "access plus 1 year"
+ExpiresByType application/javascript "access plus 1 year"
+ExpiresByType application/x-javascript "access plus 1 year"
+
+# Obrazy
+ExpiresByType image/jpeg "access plus 1 year"
+ExpiresByType image/png "access plus 1 year"
+ExpiresByType image/gif "access plus 1 year"
+ExpiresByType image/webp "access plus 1 year"
+ExpiresByType image/svg+xml "access plus 1 year"
+ExpiresByType image/x-icon "access plus 1 year"
+
+# Czcionki
+ExpiresByType font/woff "access plus 1 year"
+ExpiresByType font/woff2 "access plus 1 year"
+ExpiresByType application/font-woff "access plus 1 year"
+ExpiresByType application/font-woff2 "access plus 1 year"
+ExpiresByType application/x-font-ttf "access plus 1 year"
+ExpiresByType application/x-font-opentype "access plus 1 year"
+
+# PDF, dokumenty
+ExpiresByType application/pdf "access plus 1 month"
+
+# Dane
+ExpiresByType application/json "access plus 0 seconds"
+ExpiresByType application/xml "access plus 0 seconds"
+</IfModule>
+
+# ==========================================
+# KOMPRESJA GZIP
+# ==========================================
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml image/svg+xml font/ttf font/otf
+</IfModule>
+
+# ==========================================
+# NAGŁÓWKI BEZPIECZEŃSTWA
+# ==========================================
+
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+# HSTS (tylko gdy HTTPS działa poprawnie)
+# Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# ==========================================
+# PRZEKIEROWANIE NA HTTPS
+# ==========================================
+
+<IfModule mod_rewrite.c>
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+
+# ==========================================
+# WOOCOMMERCE
+# ==========================================
+
+# Cache dla WooCommerce API
+<IfModule mod_headers.c>
+Header always unset X-Powered-By
+Header always unset Server
+</IfModule>

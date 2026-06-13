@@ -1,0 +1,13 @@
+{
+  "name": "gold-shop",
+  "version": "1.0.0",
+  "description": "Sklep internetowy ze złotem - WordPress + WooCommerce + Base Linker",
+  "private": true,
+  "scripts": {
+    "setup": "composer install && php scripts/configure-woocommerce.php",
+    "build": "echo 'Build step placeholder'",
+    "lint:php": "phpcs --standard=WordPress wp-content/themes/woodmart-child/",
+    "fix:php": "phpcbf --standard=WordPress wp-content/themes/woodmart-child/"
+  },
+  "devDependencies": {}
+}

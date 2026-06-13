@@ -1,0 +1,41 @@
+{
+  "name": "gold-shop/wordpress",
+  "description": "Sklep internetowy ze złotem - WordPress + WooCommerce + Base Linker",
+  "type": "project",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "johnpbloch/wordpress": "^6.6",
+    "wpackagist-plugin/woocommerce": "^9.3",
+    "wpackagist-plugin/wordpress-seo": "^23.0",
+    "wpackagist-plugin/facebook-for-woocommerce": "^3.2",
+    "wpackagist-plugin/pinterest-for-woocommerce": "^1.4",
+    "wpackagist-plugin/tiktok-for-woocommerce": "^1.2",
+    "wpackagist-plugin/google-listings-and-ads": "^2.7",
+    "wpackagist-plugin/litespeed-cache": "^6.5",
+    "wpackagist-plugin/woocommerce-gateway-stripe": "^8.6",
+    "wpackagist-plugin/woocommerce-gateway-przelewy24": "^1.8",
+    "wpackagist-plugin/contact-form-7": "^5.9",
+    "wpackagist-plugin/limit-login-attempts-reloaded": "^2.26",
+    "wpackagist-plugin/wordfence": "^7.11",
+    "wpackagist-plugin/updraftplus": "^2.24",
+    "wpackagist-plugin/redirection": "^5.5",
+    "wpackagist-plugin/woocommerce-ajax-filters": "^1.3"
+  },
+  "extra": {
+    "wordpress-install-dir": "wp",
+    "installer-paths": {
+      "wp-content/plugins/{$name}/": ["type:wordpress-plugin"]
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "php scripts/configure-woocommerce.php"
+    ]
+  }
+}

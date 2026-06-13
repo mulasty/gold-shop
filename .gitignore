@@ -1,0 +1,34 @@
+# WordPress
+/wp/
+/wp-config.php
+
+# OS
+Thumbs.db
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Environment
+.env
+
+# Dependencies
+vendor/
+node_modules/
+
+# Logs
+*.log
+wp-content/debug.log
+
+# Cache
+wp-content/cache/
+wp-content/uploads/woocommerce_uploads/
+*.tar.gz
+*.zip
+
+# Specific to this project
+!wp-content/themes/woodmart-child/
+!wp-content/plugins/
